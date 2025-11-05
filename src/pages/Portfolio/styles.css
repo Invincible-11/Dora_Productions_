@@ -1,0 +1,231 @@
+.gallery-container {
+  margin-top: 5rem;
+  text-align: center;
+  padding: 20px;
+  background: rgb(62, 60, 60);
+  color: white;
+  margin-top: 6rem;
+  position: relative; /* For absolute positioning of spinner */
+}
+
+.gallery-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.gallery-tabs button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: 0.3s;
+}
+
+.gallery-tabs button.active {
+  color: red;
+  font-weight: bold;
+  border-bottom: 2px solid red;
+}
+
+/* Spinner Container */
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 0, 0, 0.2);
+  border-radius: 50%;
+  border-top-color: red;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 15px;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: auto; /* Allow variable row heights */
+  transition: opacity 0.3s ease;
+}
+
+/* Grid loading state */
+.gallery-grid.loading {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Specific category layouts */
+.pre-wedding {
+  grid-template-columns: repeat(3, 2fr);
+}
+
+.wedding {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.maternity {
+  grid-template-columns: repeat(3, 1fr);
+  /* gap: 20px; */
+}
+
+.industrial {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.all-types {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gallery-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto; /* Maintain original image aspect ratio */
+  /* max-height: 100%; Prevent it from exceeding grid height */
+  object-fit: cover; /* Show full image without cropping */
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+/* Portrait images expand to 2 rows */
+.gallery-item.portrait {
+  grid-row: span 2;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+  /* box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); */
+}
+
+/* Media Queries for Portfolio Responsiveness */
+
+/* Large screens (above 1200px) */
+@media screen and (min-width: 1201px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Medium screens (992px to 1200px) */
+@media screen and (max-width: 1200px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+}
+
+/* Tablets (768px to 991px) */
+@media screen and (max-width: 991px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .gallery-container {
+    padding: 15px;
+    margin-top: 5rem;
+  }
+  
+  .gallery-tabs {
+    flex-wrap: wrap;
+  }
+  
+  /* Override category-specific layouts for tablets */
+  .pre-wedding, .wedding, .maternity, .industrial, .all-types {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large Mobile (481px to 767px) */
+@media screen and (max-width: 767px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .gallery-container {
+    padding: 10px;
+    margin-top: 4rem;
+  }
+  
+  .gallery-tabs {
+    gap: 10px;
+  }
+  
+  .gallery-tabs button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+  
+  /* Override category-specific layouts for large mobile */
+  .pre-wedding, .wedding, .maternity, .industrial, .all-types {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Adjust portrait images for smaller screens */
+  .gallery-item.portrait {
+    grid-row: span 1;
+  }
+}
+
+/* Small Mobile (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .gallery-container {
+    padding: 8px;
+    margin-top: 3.5rem;
+  }
+  
+  .gallery-tabs {
+    width: 98vw;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .gallery-tabs button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  
+  /* Override category-specific layouts for small mobile */
+  .pre-wedding, .wedding, .maternity, .industrial, .all-types {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Adjust all images for consistent display on small screens */
+  .gallery-item img {
+    max-height: 350px;
+    object-fit: contain;
+  }
+  
+  /* Reset portrait spans for mobile */
+  .gallery-item.portrait {
+    grid-row: auto;
+  }
+}
